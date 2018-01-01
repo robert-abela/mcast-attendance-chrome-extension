@@ -1,16 +1,17 @@
 {
   	"manifest_version": 2,
 
-  	"name": "MCAST Attendance Chrome Extension",
+  	"name": "MCAST Attendance Helper",
   	"description": "Assists MCAST lectures with filling their attendance. (Robert Abela)",
   	"version": "0.1",
+  	"update_url": "https://raw.githubusercontent.com/robert-abela/mcast-attendance-chrome-extension/master/updates/updates.xml",
   
   	"icons": {
         "64": "icon.png"
     },
 
   	"content_scripts": [{
-		"matches": ["http://attendance.mcast.edu.mt/Home/Create*"],
+		"matches": ["*://attendance.mcast.edu.mt/Home/Create*"],
       	"js": ["jquery-3.2.1.min.js", "content-script.js"]
     	}
   	],
