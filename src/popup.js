@@ -1,7 +1,7 @@
 
 function runCountjs() {
-  chrome.tabs.executeScript({
-    file: 'count.js'
+  	chrome.tabs.executeScript({
+    	file: 'count.js'
   });
 }
 
