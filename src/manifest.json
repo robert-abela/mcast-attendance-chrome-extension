@@ -23,6 +23,11 @@
 		"default_popup": "popup.html",
 		"default_title": "Count present students"
 	},
+
+	"permissions": [
+				"*://attendance.mcast.edu.mt/Home/Create*"
+	],
+	
 	"homepage_url": "https://github.com/robert-abela/mcast-attendance-chrome-extension",
 	"short_name": "MCAST attendance",
 	"version_name": "Early Alpha"
