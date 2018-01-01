@@ -1,24 +1,29 @@
 {
-  	"manifest_version": 2,
-
-  	"name": "MCAST Attendance Helper",
-  	"description": "Assists MCAST lectures with filling their attendance. (Robert Abela)",
-  	"version": "0.1",
-  	"update_url": "https://raw.githubusercontent.com/robert-abela/mcast-attendance-chrome-extension/master/updates/updates.xml",
-  
-  	"icons": {
-        "64": "icon.png"
-    },
-
-  	"content_scripts": [{
-		"matches": ["*://attendance.mcast.edu.mt/Home/Create*"],
-      	"js": ["jquery-3.2.1.min.js", "content-script.js"]
-    	}
-  	],
-  
-  	"browser_action": {
-    	"default_icon": "icon.png",
-    	"default_popup": "popup.html",
-    	"default_title": "Count present students"
-  	}
+	"manifest_version": 2,
+	"name": "MCAST Attendance Helper",
+	"version": "0.1",
+	"description": "Assists MCAST lectures with filling their attendance. (Robert Abela)",
+	"icons": {
+		"64": "icon64.png",
+		"128": "icon128.png"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"*://attendance.mcast.edu.mt/Home/Create*"
+			],
+			"js": [
+				"jquery-3.2.1.min.js",
+				"content-script.js"
+			]
+		}
+	],
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "popup.html",
+		"default_title": "Count present students"
+	},
+	"homepage_url": "https://github.com/robert-abela/mcast-attendance-chrome-extension",
+	"short_name": "MCAST attendance",
+	"version_name": "Early Alpha"
 }
