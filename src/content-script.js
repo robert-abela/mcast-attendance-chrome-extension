@@ -1,11 +1,34 @@
 var ThemeColor = 'Indigo';
 
+var weekday = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var date = new Date();
+var day = weekday[date.getDay()];
 
+function pad(i) {
+    return (i < 10) ? "0" + i : i;
+}
+
+function calcDuration(t1, t2) {
+	dt1 = new Date("July 10, 1982 " + t1 + ":00");
+	dt2 = new Date("July 10, 1982 " + t2 + ":00");
+	return (dt2.getHours()+(dt2.getMinutes()/60)) - 
+		   (dt1.getHours()+(dt1.getMinutes()/60));
+}
+
+function matchItem(item) {
+
+	if (day === item[0]) {
+		var currTime = pad(date.getHours())+':'+pad(date.getMinutes());
+		if (currTime >= item[1] && currTime <= item[2])
+			return true;
+	}
+
+	return false
+}
 
 // ref: http://stackoverflow.com/a/1293163/2343
-// This will parse a delimited string into an array of
-// arrays. The default delimiter is the comma, but this
-// can be overriden in the second argument.
+// This will parse a delimited string into an array of arrays. The default 
+// delimiter is the comma, but this can be overriden in the second argument.
 function CSVToArray( strData, strDelimiter ){
     // Check to see if the delimiter is defined. If not,
     // then default to comma.
@@ -89,19 +112,19 @@ function CSVToArray( strData, strDelimiter ){
     return( arrData );
 }
 
-
 try {
+	//Create new count button
 	var submitBtn = $("form :submit");
 	var countBtn = document.createElement("input");
 	countBtn.setAttribute("type", "button");
 	countBtn.value = "Count present";
 	countBtn.className = submitBtn.attr('class');
 	countBtn.style.color = ThemeColor;
-	countBtn.style.marginRight='6px';
+	countBtn.style.marginRight = '6px';
 	countBtn.addEventListener ("click", function() {
-		var elems = document.getElementsByClassName("waspresent").length;
+		var elems = $('.waspresent').length
 		if (elems == 0) {
-			countBtn.value = 'Count present (select class/group)';
+			countBtn.value = 'Count present (select class\\group)';
 		}
 		else {
 			var isChecked = $('.waspresent:radio:checked').length;
@@ -111,25 +134,39 @@ try {
 	var parent = submitBtn.parent().get(0);
 	parent.insertBefore(countBtn, submitBtn.get(0));
 
-	var unitLbl = $('label[for="Unit"]');
-	unitLbl.text('Unit (fill next 3)');
-	unitLbl.css({
-		'text-decoration': 'underline', 
-		'color': ThemeColor
-	});
-	unitLbl.on('click', function(e) {
-    	$('#Unit').get(0).value = 'ITSFT-406-1502 - Programming Concepts';
-		$('#Session').get(0).value = '08:00';
-		$('#Duration').get(0).value = '2';
-	});
+	//change colour of heading
+	$('h2').css({'color': ThemeColor});
 
+	//Load CSV from storage
 	chrome.storage.sync.get('entries', function (obj) {
 		if (typeof obj.entries === "undefined") {
     		console.log('Timetable not found in storage');
 		}
 		else {
 			var parsedEntries = CSVToArray(obj.entries);
-			console.log(parsedEntries.length+' timetable entries found in storage');
+			var items = parsedEntries.length;
+			console.log(items+' timetable entries found in storage');
+
+			for (var i = 0; i < items; i++) {
+				var item = parsedEntries[i];
+
+				if (matchItem(item) === true) {
+					console.log('Match: '+item);
+
+					//change label colour
+					$('label[for="Unit"]').css({'color': ThemeColor});
+					$('label[for="Session"]').css({'color': ThemeColor});
+					$('label[for="Duration"]').css({'color': ThemeColor});
+
+					//autofill fields
+					$('#Unit').val(item[3]);
+					$('#Session').val(item[1]);
+					$('#Duration').val(calcDuration(item[1], item[2]));
+					
+					//stop looping
+					break;
+				}
+			}
 		}
 	});
 }
