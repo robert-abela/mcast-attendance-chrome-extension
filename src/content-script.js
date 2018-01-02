@@ -1,6 +1,6 @@
 var ThemeColor = 'Indigo';
 
-var weekday = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
 var date = new Date();
 var day = weekday[date.getDay()];
 
@@ -17,7 +17,10 @@ function calcDuration(t1, t2) {
 
 function matchItem(item) {
 
-	if (day === item[0]) {
+	if (item.length < 4)
+		return false;
+
+	if (day === item[0].toUpperCase()) {
 		var currTime = pad(date.getHours())+':'+pad(date.getMinutes());
 		if (currTime >= item[1] && currTime <= item[2])
 			return true;
@@ -83,9 +86,7 @@ function CSVToArray( strData, strDelimiter ){
             // We found a quoted value. When we capture
             // this value, unescape any double quotes.
             strMatchedValue = arrMatches[ 2 ].replace(
-                new RegExp( "\"\"", "g" ),
-                "\""
-                );
+                new RegExp( "\"\"", "g" ), "\"");
 
         } else {
             // We found a non-quoted value.
