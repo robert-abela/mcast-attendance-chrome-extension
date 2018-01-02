@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "MCAST Attendance Helper",
-	"version": "0.3",
+	"version": "0.4",
 	"description": "Assists MCAST lectures with filling their attendance. (Robert Abela)",
 	"icons": {
 		"64": "icon64.png",
@@ -23,11 +23,13 @@
 		"default_popup": "popup.html",
 		"default_title": "Count present students"
 	},
-
 	"permissions": [
 		"*://attendance.mcast.edu.mt/Home/Create*", "storage"
 	],
-	
+	"options_ui": {
+		"page": "options.html",
+		"chrome_style": true
+	},
 	"homepage_url": "https://github.com/robert-abela/mcast-attendance-extension",
 	"short_name": "MCAST attendance",
 	"version_name": "Beta version"

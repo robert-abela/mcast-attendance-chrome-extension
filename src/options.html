@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>MCAST Attendance Helper Configuration</title>
+	    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+</head>
+<body>
+	Each line represents a lesson and is in CSV format, e.g.: DDD,START,END,UNIT
+	<ul>
+		<li>DDD: 3 letter day of the week, e.g.: Mon, Thu</li>
+		<li>START,END: 24-hr clock time in HH:MM format, e.g.: 08:30, 16:00</li>
+		<li>UNIT: Name of the lesson's unit, e.g.:ITSFT-406-1502 - Programming Concepts</li>
+	</ul>
+	
+	<textarea cols="80" rows="12" id="timetable" style="font-family: monospace; font-size: 14px;"></textarea>
+    <p id="msgdiv" style="display: none;"><br /></p>
+    <button id="save" style="color: Indigo">Save timetable</button>
+    </div>
+    <script type="text/javascript" src="options.js"></script>
+</body>
+</html>

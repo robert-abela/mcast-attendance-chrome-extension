@@ -2,19 +2,25 @@
 <html>
   <head>
     <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <style>
+      body {
+        height: 150px;
+        width: 425px;
+      }
+    </style>
+
   </head>
   <body>
     <h3>MCAST Attendance Helper</h3>
+    <b>Basic Usage</b>: Adds a new button to count the number of students present.<br/>
+    <b>Advanced Usage</b>: Configure timetable to autofill Unit, Session &amp; Duration.
     <div style="text-align: center;">
-      <textarea cols="80" rows="15" id="timetable"></textarea>
-      <p id="msgdiv" style="display: none;"><br /></p>
-      <button id="clear">Delete</button> <button id="save">Save</button>
+      <button id="configure" style="color: Indigo; margin: 7px">Configure timetable...</button>
     </div>
     <script type="text/javascript" src="popup.js"></script>
     <hr />
     <div>
-      Developed by Robert Abela (2018). Sources at <a href="https://github.com/robert-abela/mcast-attendance-extension" target="_blank">github.com/robert-abela</a><br/>
-      Icons made by <a href="https://www.flaticon.com/authors/icon-works" target="_blank">Icon Works</a> from <a href="https://www.flaticon.com/" target="_blank">flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC 3.0 BY</a>
+      Version 0.4 (Beta) developed by Robert Abela (2018). Sources can be found on <a href="https://github.com/robert-abela/mcast-attendance-extension" target="_blank">github.com/robert-abela</a>. Icons made by <a href="https://www.flaticon.com/authors/icon-works" target="_blank">Icon Works</a> from <a href="https://www.flaticon.com/" target="_blank">flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC 3.0 BY</a>.
     </div>
   </body>
 </html>
