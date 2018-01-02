@@ -32,6 +32,5 @@ chrome.storage.sync.get('entries', function (obj) {
 		$("#timetable").text(obj.entries);
 });
 
-document.getElementById('save').addEventListener('click', saveTimetable);
-document.getElementById('clear').addEventListener('click', clearStorage);
-
+$('#save').click(saveTimetable);
+$('#clear').click(clearStorage);

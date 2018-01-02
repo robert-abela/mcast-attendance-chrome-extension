@@ -1,5 +1,4 @@
 /*
-
 var classTxtFld = $( "#Class" ).get(0);
 classTxtFld.value = 'IT-SWD-6.2';
 
