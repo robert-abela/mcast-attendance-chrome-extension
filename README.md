@@ -3,7 +3,7 @@
 Activates only when visiting http://attendance.mcast.edu.mt to **Add Attendance** entries. Changes heading colour to Indigo to indicate activation.
 
 ## Basic Usage
-Adds a new button (Indigo text) that when pressed counts the number or students marked as present
+Automatically adds a new button (Indigo text) that when pressed counts the number or students marked as present
 
 ## Advanced Usage
 Allows the user to configure timetable to autofill Unit, Session & Duration fields if the attendance is being added during the lesson. Labels' colour changes to Indigo to indicate autofill. Timetable configured as CSV rows, each line represents a lesson and is in the format: DDD,START,END,UNIT where:
