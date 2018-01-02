@@ -21,7 +21,7 @@ function loadSavedOptions() {
 		if (typeof obj.entries !== "undefined")
 			$("#timetable").text(obj.entries);
 		showMsg('Changes are not saved automatically, remember to save your timetable!');
-		$("#timetable").select();
+		$("#timetable").focus();
 	});
 }
 
