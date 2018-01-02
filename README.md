@@ -1,5 +1,4 @@
-# mcast-attendance-extension
-MCAST Attendance Extension v0.4
+# MCAST Attendance Extension v0.4
 
 Activates only when visiting http://attendance.mcast.edu.mt to **Add Attendance** entries. Changes heading colour to Indigo to indicate activation.
 
