@@ -101,8 +101,7 @@ function CSVToArray( strData, strDelimiter ){
     return (arrData);
 }
 
-try {
-	//Create new count button
+function makeCountBtn() {
 	var submitBtn = $("form :submit");
 	var countBtn = document.createElement("input");
 	countBtn.setAttribute("type", "button");
@@ -113,7 +112,7 @@ try {
 	countBtn.addEventListener ("click", function() {
 		var elems = $('.waspresent').length
 		if (elems == 0) {
-			countBtn.value = 'Count present (select class\\group)';
+			countBtn.value = 'Count present (Select Class\\Group)';
 		}
 		else {
 			var isChecked = $('.waspresent:radio:checked').length;
@@ -122,11 +121,9 @@ try {
 	});
 	var parent = submitBtn.parent().get(0);
 	parent.insertBefore(countBtn, submitBtn.get(0));
+}
 
-	//Change colour of heading
-	$('h2').css({'color': ThemeColor});
-
-	//Load CSV from storage
+function loadCSV() {
 	chrome.storage.sync.get('entries', function (obj) {
 		if (typeof obj.entries === "undefined") {
     		console.log('Timetable not found in storage');
@@ -159,6 +156,20 @@ try {
 		}
 	});
 }
-catch(err) {
-    console.log(err.message);
+
+function startModifications() {
+	try {
+		//Change colour of heading
+		$('h2').css({'color': ThemeColor});
+
+		makeCountBtn();
+
+		if (location.href.includes("attendance.mcast.edu.mt/Home/Create"))
+			loadCSV();
+	}
+	catch(err) {
+	    console.log(err.message);
+	}
 }
+
+$(document).ready(startModifications);
