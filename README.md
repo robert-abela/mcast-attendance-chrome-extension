@@ -14,15 +14,14 @@ Allows the user to configure timetable to autofill Unit, Session & Duration fiel
 
 An example week is found below:
 ```csv
-    Mon,08:00,10:00,ITSFT-506-1614 - Low Level Programming II
-    Mon,10:00,12:00,ITSFT-506-1614 - Low Level Programming II
-    Mon,12:30,14:00,ITSFT-406-1502 - Programming Concepts
-    Tue,10:30,12:00,ITSFT-406-1502 - Programming Concepts
-    Wed,08:00,09:30,ITSFT-406-1502 - Programming Concepts
-    Wed,10:00,12:30,ITSFT-506-1614 - Low Level Programming II
-    Thu,08:00,10:30,ITSFT-506-1614 - Low Level Programming II
-    Thu,12:30,14:00,ITSFT-406-1502 - Programming Concepts
-    Fri,08:00,09:30,ITSFT-406-1502 - Programming Concepts
-    Fri,10:30,12:00,ITSFT-406-1502 - Programming Concepts
+Mon,08:00,10:00,ITSFT-506-1614 - Low Level Programming II
+Mon,10:00,12:00,ITSFT-506-1614 - Low Level Programming II
+Mon,12:30,14:00,ITSFT-406-1502 - Programming Concepts
+Tue,10:30,12:00,ITSFT-406-1502 - Programming Concepts
+Wed,08:00,09:30,ITSFT-406-1502 - Programming Concepts
+Wed,10:00,12:30,ITSFT-506-1614 - Low Level Programming II
+Thu,08:00,10:30,ITSFT-506-1614 - Low Level Programming II
+Thu,12:30,14:00,ITSFT-406-1502 - Programming Concepts
+Fri,08:00,09:30,ITSFT-406-1502 - Programming Concepts
+Fri,10:30,12:00,ITSFT-406-1502 - Programming Concepts
 ```
-
