@@ -3,6 +3,7 @@ var ThemeColor = 'Indigo';
 var weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
 var date = new Date();
 var day = weekday[date.getDay()];
+var regexTime = new RegExp(/^(([0-1]\d|2[0-3]):[0-5]\d)$/);
 
 function pad(i) {
     return (i < 10) ? "0" + i : i;
@@ -16,14 +17,15 @@ function calcDuration(t1, t2) {
 }
 
 function matchItem(item) {
-
 	if (item.length < 4)
 		return false;
 
 	if (day === item[0].toUpperCase()) {
-		var currTime = pad(date.getHours())+':'+pad(date.getMinutes());
-		if (currTime >= item[1] && currTime <= item[2])
-			return true;
+		if (regexTime.test(item[1]) && regexTime.test(item[1])) {
+			var currTime = pad(date.getHours())+':'+pad(date.getMinutes());
+			if (currTime >= item[1] && currTime <= item[2])
+				return true;
+		}
 	}
 
 	return false
@@ -92,6 +94,9 @@ function CSVToArray( strData, strDelimiter ){
             // We found a non-quoted value.
             strMatchedValue = arrMatches[ 3 ];
         }
+
+        //trim value
+        strMatchedValue = strMatchedValue.trim();
 
         // Now that we have our value string, let's add it to the data array.
         arrData[ arrData.length - 1 ].push( strMatchedValue );
