@@ -9,6 +9,8 @@ function pad(i) {
     return (i < 10) ? "0" + i : i;
 }
 
+var currTime = pad(date.getHours())+':'+pad(date.getMinutes());
+
 function calcDuration(t1, t2) {
 	dt1 = new Date("July 10, 1982 " + t1 + ":00");
 	dt2 = new Date("July 10, 1982 " + t2 + ":00");
@@ -18,17 +20,20 @@ function calcDuration(t1, t2) {
 
 function matchItem(item) {
 	if (item.length < 4)
-		return false;
+		return false; //not enough strings
 
+	if (item[3].length === 0)
+		return false; //unit name empty
+
+	var start = item[1], end = item[2];
 	if (day === item[0].toUpperCase()) {
-		if (regexTime.test(item[1]) && regexTime.test(item[1])) {
-			var currTime = pad(date.getHours())+':'+pad(date.getMinutes());
-			if (currTime >= item[1] && currTime <= item[2])
+		if (regexTime.test(start) && regexTime.test(end)) {
+			if (currTime >= start && currTime <= end)
 				return true;
 		}
 	}
 
-	return false
+	return false;
 }
 
 // ref: http://stackoverflow.com/a/1293163/2343
