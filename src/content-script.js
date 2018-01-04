@@ -20,16 +20,15 @@ function matchItem(item) {
 	if (item.length < 4)
 		return false;
 
-	var start = item[1], end = item[2];
 	if (day === item[0].toUpperCase()) {
-		if (regexTime.test(start) && regexTime.test(end)) {
+		if (regexTime.test(item[1]) && regexTime.test(item[1])) {
 			var currTime = pad(date.getHours())+':'+pad(date.getMinutes());
-			if (currTime >= start && currTime <= end)
+			if (currTime >= item[1] && currTime <= item[2])
 				return true;
 		}
 	}
 
-	return (item[3].length > 0);
+	return false
 }
 
 // ref: http://stackoverflow.com/a/1293163/2343
