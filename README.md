@@ -1,6 +1,6 @@
 # MCAST Attendance Extension v0.4
 
-Activates only when visiting http://attendance.mcast.edu.mt to **Add Attendance** entries. Changes heading colour to Indigo to indicate activation.
+Activates only when visiting http://attendance.mcast.edu.mt to **Add or Edit Attendance** entries. Changes heading colour to Indigo to indicate activation.
 
 ## Basic Usage
 Automatically adds a new button (Indigo text) that when pressed counts the number or students marked as present.
