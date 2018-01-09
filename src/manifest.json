@@ -2,7 +2,8 @@
 	"manifest_version": 2,
 	"name": "MCAST Attendance Helper",
 	"version": "0.5",
-	"description": "Assists MCAST lectures with filling their attendance. (Robert Abela)",
+	"description": "Assists MCAST lectures in filling their attendance.",
+	"author": "Robert Abela",
 	"icons": {
 		"16": "img/icon16.png",
 		"24": "img/icon24.png",
