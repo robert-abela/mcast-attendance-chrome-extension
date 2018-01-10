@@ -9,21 +9,49 @@ function showTempMsg(msg) {
 }
 
 function saveTimetable() {
-	var csvValue = $("#timetable").val();
-	var object = {'entries': csvValue};
-	chrome.storage.sync.set(object, function() {
-		showTempMsg('Timetable saved');
-	});
+
+	if ($('#configure').is(":checked")) {
+		var csvValue = $("#timetable").val();
+		var object = {'entries': csvValue};
+		chrome.storage.sync.set(object, function() {
+			showTempMsg('Timetable saved');
+		});
+	}
+	else {
+		chrome.storage.sync.clear(function() {
+    		var error = chrome.runtime.lastError;
+    		if (error) {
+	        	console.error(error);
+	    	}
+		});
+		showTempMsg('Timetable cleared');
+	}
 }
 
 function loadSavedOptions() {
 	chrome.storage.sync.get('entries', function (obj) {
-		if (typeof obj.entries !== "undefined")
+		if (typeof obj.entries !== "undefined") {
 			$("#timetable").text(obj.entries);
+			$('#configure').prop('checked', true);
+		}
+
+		onCheckboxChange();
 		showMsg('Note: Changes are not saved automatically, remember to save your timetable!');
 		$("#timetable").focus();
 	});
 }
 
-$(document).ready(loadSavedOptions);
-$('#save').click(saveTimetable);
+function onCheckboxChange() {
+	var enabled = $('#configure').is(":checked");
+	$("#timetable").prop('disabled', !enabled);
+}
+
+$(document).ready(function(){
+	loadSavedOptions();
+	$('#save').click(saveTimetable);
+	$('#configure').click(onCheckboxChange);
+    $("#showmoreinfo").click(function(){
+		$("#showmoreinfo").remove();
+        $("#moreinfo").show();
+    });
+});

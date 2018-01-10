@@ -3,21 +3,48 @@
 	<head>
 		<title>MCAST Attendance Helper Configuration</title>
 	    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
-</head>
+	    <style>
+			textarea {
+				font-family: monospace; 
+				font-size: 14px; 
+			}
+			.rTable {
+		    	display: table;
+		    	width: 100%;
+			}
+			.rTableRow {
+		    	display: table-row;
+			}
+			.rTableCell {
+		    	display: table-cell;
+		    	padding: 3px 10px;
+			}
+		</style> 
+	</head>
 <body>
-	Each line represents a lesson and is in CSV format: DDD,CLASS,START,END,UNIT
-	<ul>
-		<li>DDD: 3 letter day of the week, e.g.: Mon, Thu</li>
-		<li>CLASS: class name, e.g.: IT-SWD-6.2A</li>
-		<li>START,END: 24-hr clock time in HH:MM format, e.g.: 08:30, 16:00</li>
-		<li>UNIT: Name of the lesson's unit, e.g.: ITSFT-406-1502 - Programming Concepts</li>
-	</ul>
+
+	<p><input id="configure" type="checkbox"> <label for="configure">Configure timetable</label> </p>
+	Each line represents a lesson and is in CSV format: DDD,CLASS,START,END,UNIT <a href="#" id="showmoreinfo">(more info)</a>
+	<div id="moreinfo" style="display: none;">
+		<ul>
+			<li>DDD: 3 letter day of the week, e.g.: Mon, Thu</li>
+			<li>CLASS: full class code name, e.g.: IT-SWD-6.2A</li>
+			<li>START,END: 24-hr clock time in HH:MM format, e.g.: 08:30, 16:00</li>
+			<li>UNIT: Name of the lesson's unit, e.g.: ITSFT-406-1502 - Programming Concepts</li>
+		</ul>
+	</div>
+	<p> <textarea cols="80" rows="10" id="timetable"></textarea> </p>
 	
-	<textarea cols="80" rows="12" id="timetable" style="font-family: monospace; font-size: 14px;"></textarea>
-    <div id="msgdiv" style="display: none;"></div>
-    <div style="text-align: right;">
-    	<button id="save" style="margin-top: 7px">Save timetable</button>
-    </div>
-    <script type="text/javascript" src="options.js"></script>
+	<div class="rTable">
+		<div class="rTableRow">
+			<div class="rTableCell">
+				<div id="msgdiv" style="display: none;"></div>
+			</div>
+			<div class="rTableCell" style="text-align: right;">
+				<button id="save" style="margin-top: 7px">Save</button>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="options.js"></script>
 </body>
 </html>
