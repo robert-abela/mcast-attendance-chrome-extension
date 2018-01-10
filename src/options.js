@@ -9,22 +9,26 @@ function showTempMsg(msg) {
 }
 
 function saveTimetable() {
-
 	if ($('#configure').is(":checked")) {
 		var csvValue = $("#timetable").val();
 		var object = {'entries': csvValue};
 		chrome.storage.sync.set(object, function() {
-			showTempMsg('Timetable saved');
+    		var error = chrome.runtime.lastError;
+    		if (error)
+	        	console.error(error);
+	    	else
+	    		showTempMsg('Timetable saved');
 		});
 	}
 	else {
 		chrome.storage.sync.clear(function() {
     		var error = chrome.runtime.lastError;
-    		if (error) {
+    		if (error)
 	        	console.error(error);
-	    	}
+	    	else
+	    		showTempMsg('Timetable cleared');
 		});
-		showTempMsg('Timetable cleared');
+		
 	}
 }
 
