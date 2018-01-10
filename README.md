@@ -1,6 +1,6 @@
 # MCAST Attendance Extension v0.6.0
 
-Works in basic mode by default and in advanced mode if configured
+Works in basic mode by default and in advanced mode if configured.
 
 ## Basic Mode
 Automatically adds a new button that when pressed counts the number or students marked as present.
