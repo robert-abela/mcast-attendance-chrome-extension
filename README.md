@@ -1,19 +1,20 @@
 # MCAST Attendance Extension v0.6.0
 
-Activates only when visiting http://attendance.mcast.edu.mt to **Add or Edit Attendance** entries. Changes heading colour to Indigo to indicate activation.
+Works in basic mode by default and in advanced mode if configured
 
-## Basic Usage
-Automatically adds a new button (Indigo text) that when pressed counts the number or students marked as present.
+## Basic Mode
+Automatically adds a new button that when pressed counts the number or students marked as present.
+Activates only when visiting http://attendance.mcast.edu.mt to **Add or Edit Attendance** entries. 
 
-## Advanced Usage
-Allows the user to configure timetable to autofill Class, Unit, Session & Duration fields if the attendance is being added during the lesson. Labels' colour changes to Indigo to indicate autofill. Timetable configured as CSV rows, each line represents a lesson and is in the format: DDD,CLASS,START,END,UNIT where:
+## Advanced Mode
+Adds a new **Autofill Attendance** link on the homepage that autofills Class, Unit, Session & Duration fields if the attendance is being added during the lesson (day of the week and time need to match). Activates when the user has configured the timetable in **Options**. Timetable configured as CSV rows, each line represents a lesson and is in the format: DDD,CLASS,START,END,UNIT as detailed below:
 
 * DDD: 3 letter day of the week, e.g.: Mon, Thu
 * CLASS: class name, e.g.: IT-SWD-6.2A
 * START,END: 24-hr clock time in HH:MM format, e.g.: 08:30, 16:00
 * UNIT: Name of the lesson's unit, e.g.: ITSFT-406-1502 - Programming Concepts
 
-An example week is found below:
+An example of a week configuration is found below:
 ```csv
 Mon,IT-SWD-6.2A,08:00,10:00,ITSFT-506-1614 - Low Level Programming II
 Mon,IT-SWD-6.2B,10:00,12:00,ITSFT-506-1614 - Low Level Programming II
