@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "MCAST Attendance Helper",
-	"version": "0.5",
+	"version": "0.6.0",
 	"description": "Assists MCAST lecturers in filling their attendance.",
 	"author": "Robert Abela",
 	"icons": {
@@ -16,11 +16,18 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"*://attendance.mcast.edu.mt/Home/Create*", "*://attendance.mcast.edu.mt/Home/Edit*"
+				"*://attendance.mcast.edu.mt/Home/Create*autofill", "*://attendance.mcast.edu.mt/Home/Edit*"
 			],
 			"js": [
 				"jquery-3.2.1.min.js",
 				"content-script.js"
+			]
+		},
+		{
+			"matches": ["*://attendance.mcast.edu.mt/Home/Index"],
+			"js": [
+				"jquery-3.2.1.min.js",
+				"inject-link.js"
 			]
 		}
 	],
@@ -30,13 +37,13 @@
 		"default_title": "MCAST Attendance Helper"
 	},
 	"permissions": [
-		"*://attendance.mcast.edu.mt/Home/Create*", "*://attendance.mcast.edu.mt/Home/Edit*", "storage"
+		"*://attendance.mcast.edu.mt/Home/*", "storage"
 	],
 	"options_ui": {
 		"page": "options.html",
 		"chrome_style": true
 	},
 	"homepage_url": "https://github.com/robert-abela/mcast-attendance-extension",
-	"short_name": "MCAST attendance",
-	"version_name": "0.5 (Beta)"
+	"short_name": "MCAST Attendance",
+	"version_name": "0.6.0 (Beta)"
 }

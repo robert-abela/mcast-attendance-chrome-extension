@@ -5,6 +5,14 @@ var date = new Date();
 var day = weekday[date.getDay()];
 var regexTime = new RegExp(/^(([0-1]\d|2[0-3]):[0-5]\d)$/);
 
+var FldEnum = {
+    DAY : 0,
+    CLASS : 1,
+    START : 2,
+    END : 3,
+    UNIT: 4
+}
+
 function pad(i) {
     return (i < 10) ? "0" + i : i;
 }
@@ -19,14 +27,17 @@ function calcDuration(t1, t2) {
 }
 
 function matchItem(item) {
-	if (item.length < 4)
-		return false; //not enough strings
+	if (item.length < 5)
+		return false; //not enough fields
 
-	if (item[3].length === 0)
+	if (item[FldEnum.UNIT].length === 0)
 		return false; //unit name empty
 
-	var start = item[1], end = item[2];
-	if (day === item[0].toUpperCase()) {
+	if (item[FldEnum.CLASS].length === 0)
+		return false; //class name empty
+	
+	if (day === (item[FldEnum.DAY]).toUpperCase()) {
+		var start = item[FldEnum.START], end = item[FldEnum.END];
 		if (regexTime.test(start) && regexTime.test(end)) {
 			if (currTime >= start && currTime <= end)
 				return true;
@@ -120,7 +131,8 @@ function makeCountBtn() {
 	countBtn.style.color = ThemeColor;
 	countBtn.style.marginRight = '6px';
 	countBtn.addEventListener ("click", function() {
-		var elems = $('.waspresent').length
+
+		var elems = $('.waspresent').length;
 		if (elems == 0) {
 			countBtn.value = 'Count present (Select Class\\Group)';
 		}
@@ -131,12 +143,18 @@ function makeCountBtn() {
 	});
 	var parent = submitBtn.parent().get(0);
 	parent.insertBefore(countBtn, submitBtn.get(0));
+
+	//Change colour of heading
+	$('h2').css({'color': ThemeColor});
 }
 
 function loadCSV() {
 	chrome.storage.sync.get('entries', function (obj) {
 		if (typeof obj.entries === "undefined") {
-    		console.log('Timetable not found in storage');
+			console.log('Timetable not found in storage');
+		}
+		else if ($('#Session').val().length > 0) {
+			console.log('Skipping second pass'); //TODO: confirm this is needed
 		}
 		else {
 			var parsedEntries = CSVToArray(obj.entries);
@@ -149,37 +167,47 @@ function loadCSV() {
 				if (matchItem(item) === true) {
 					console.log('Match: '+item);
 
-					//Change label colour
-					$('label[for="Unit"]').css({'color': ThemeColor});
-					$('label[for="Session"]').css({'color': ThemeColor});
-					$('label[for="Duration"]').css({'color': ThemeColor});
-
 					//Autofill fields
-					$('#Unit').val(item[3]);
-					$('#Session').val(item[1]);
-					$('#Duration').val(calcDuration(item[1], item[2]));
-					
-					//Stop looping
-					break;
+					$('#Unit').val(item[FldEnum.UNIT]);
+					$('#Session').val(item[FldEnum.START]);
+					$('#Duration').val(calcDuration(item[FldEnum.START], item[FldEnum.END]));
+					$('#Class').val(item[FldEnum.CLASS]);
+
+					return new Boolean(true);
 				}
 			}
 		}
 	});
+	return new Boolean(false);
 }
 
 function startModifications() {
 	try {
-		//Change colour of heading
-		$('h2').css({'color': ThemeColor});
+		if (location.href.includes("attendance.mcast.edu.mt/Home/Create")) {
+			if (loadCSV()) {
+				setTimeout(function() { 
+					//console.log($( "form:first" ).serialize());
+					$.post( window.location.href, $( "form:first" ).serialize(), function( data ) {
+						console.log(data);
+						document.open();
+						document.write(data);
+						document.close();
 
-		makeCountBtn();
-
-		if (location.href.includes("attendance.mcast.edu.mt/Home/Create"))
-			loadCSV();
+						makeCountBtn();
+					});
+				 }, 0); // 0ms timeout seems to be needed to allow LoadCSV to fill fields
+			}
+			else {
+				makeCountBtn();	// failed to load CSV
+			}
+		}
+		else {
+			makeCountBtn();	// Edit page
+		}
 	}
 	catch(err) {
-	    console.log(err.message);
+		console.log(err.message);
 	}
 }
 
-$(document).ready(startModifications);
+$(document).ready(startModifications); 
