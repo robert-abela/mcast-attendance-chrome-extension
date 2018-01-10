@@ -4,7 +4,7 @@ function injectLink() {
 			console.log('Timetable not found in storage, skipping autofill link.');
 		}
 		else {
-			var link = $("<br /><a href='/Home/Create?Length=4&autofill'><b>Autofill Attendance</b></a>");
+			var link = $("<br /><a href='/Home/Create?Length=4&autofill'>Autofill Attendance</a>");
 			link.insertAfter("h2:first");
 		}
 	});

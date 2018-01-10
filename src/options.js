@@ -37,13 +37,13 @@ function loadSavedOptions() {
 
 		onCheckboxChange();
 		showMsg('Note: Changes are not saved automatically, remember to save your timetable!');
-		$("#timetable").focus();
 	});
 }
 
 function onCheckboxChange() {
 	var enabled = $('#configure').is(":checked");
 	$("#timetable").prop('disabled', !enabled);
+	$("#timetable").focus();
 }
 
 $(document).ready(function(){

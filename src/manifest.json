@@ -16,11 +16,22 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"*://attendance.mcast.edu.mt/Home/Create*autofill", "*://attendance.mcast.edu.mt/Home/Edit*"
+				"*://attendance.mcast.edu.mt/Home/Create?Length=4", "*://attendance.mcast.edu.mt/Home/Edit*"
 			],
 			"js": [
 				"jquery-3.2.1.min.js",
-				"content-script.js"
+				"content-script.js",
+				"basic.js"
+			]
+		},
+		{
+			"matches": [
+				"*://attendance.mcast.edu.mt/Home/Create*autofill"
+			],
+			"js": [
+				"jquery-3.2.1.min.js",
+				"content-script.js",
+				"advanced.js"
 			]
 		},
 		{

@@ -1,5 +1,3 @@
-var ThemeColor = 'Indigo';
-
 var weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
 var date = new Date();
 var day = weekday[date.getDay()];
@@ -128,7 +126,6 @@ function makeCountBtn() {
 	countBtn.setAttribute("type", "button");
 	countBtn.value = "Count present";
 	countBtn.className = submitBtn.attr('class');
-	countBtn.style.color = ThemeColor;
 	countBtn.style.marginRight = '6px';
 	countBtn.addEventListener ("click", function() {
 
@@ -143,9 +140,6 @@ function makeCountBtn() {
 	});
 	var parent = submitBtn.parent().get(0);
 	parent.insertBefore(countBtn, submitBtn.get(0));
-
-	//Change colour of heading
-	$('h2').css({'color': ThemeColor});
 }
 
 function loadCSV() {
@@ -180,34 +174,3 @@ function loadCSV() {
 	});
 	return new Boolean(false);
 }
-
-function startModifications() {
-	try {
-		if (location.href.includes("attendance.mcast.edu.mt/Home/Create")) {
-			if (loadCSV()) {
-				setTimeout(function() { 
-					//console.log($( "form:first" ).serialize());
-					$.post( window.location.href, $( "form:first" ).serialize(), function( data ) {
-						console.log(data);
-						document.open();
-						document.write(data);
-						document.close();
-
-						makeCountBtn();
-					});
-				 }, 0); // 0ms timeout seems to be needed to allow LoadCSV to fill fields
-			}
-			else {
-				makeCountBtn();	// failed to load CSV
-			}
-		}
-		else {
-			makeCountBtn();	// Edit page
-		}
-	}
-	catch(err) {
-		console.log(err.message);
-	}
-}
-
-$(document).ready(startModifications); 
