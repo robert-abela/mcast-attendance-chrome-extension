@@ -1,6 +1,5 @@
 function showMsg(msg) {
-	$("#msgdiv").text(msg);
-	$("#msgdiv").show();
+	$("#msgdiv").text(msg).show();
 }
 
 function showTempMsg(msg) {
@@ -28,7 +27,6 @@ function saveTimetable() {
 	    	else
 	    		showTempMsg('Timetable cleared');
 		});
-		
 	}
 }
 

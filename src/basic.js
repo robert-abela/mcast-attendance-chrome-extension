@@ -1,6 +1,6 @@
 function startModifications() {
 	try {
-			makeCountBtn();	// no timetable found
+		makeCountBtn();	// no timetable found
 	}
 	catch(err) {
 		console.log(err.message);
