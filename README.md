@@ -20,7 +20,7 @@ Mon,IT-SWD-6.2A,08:00,10:00,ITSFT-506-1614 - Low Level Programming II
 Mon,IT-SWD-6.2B,10:00,12:00,ITSFT-506-1614 - Low Level Programming II
 Mon,IT-MSD-4.2B,12:30,14:00,ITSFT-406-1502 - Programming Concepts
 Tue,IT-MSD-4.2C,10:30,12:00,ITSFT-406-1502 - Programming Concepts
-Wed,IT-MSD-4.2B,08:00,09:30,ITSFT-406-1502 - Programming Concepts
+Wed,IT-MSD-4.2B,08:30,10:00,ITSFT-406-1502 - Programming Concepts
 Wed,IT-SWD-6.2A,10:00,12:30,ITSFT-506-1614 - Low Level Programming II
 Thu,IT-SWD-6.2A,08:00,10:30,ITSFT-506-1614 - Low Level Programming II
 Thu,IT-MSD-4.2C,12:30,14:00,ITSFT-406-1502 - Programming Concepts
