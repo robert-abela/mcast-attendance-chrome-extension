@@ -1,4 +1,4 @@
-# MCAST Attendance Extension v0.6.0
+# MCAST Attendance Helper v0.6.0
 
 Works in basic mode by default and in advanced mode if configured.
 
