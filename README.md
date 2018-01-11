@@ -2,8 +2,6 @@
 
 A chrome extension that assists MCAST lecturers in filling their attendance. Works in basic mode by default and in advanced mode if configured.
 
-![Main graphic](resources/chrome-store-images/timetable-small.png)
-
 ## Basic Mode
 Automatically adds a new button that when pressed counts the number or students marked as present.
 Activates only when visiting http://attendance.mcast.edu.mt to **Add or Edit Attendance** entries. 
