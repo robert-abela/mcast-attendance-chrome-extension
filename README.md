@@ -1,4 +1,4 @@
-# MCAST Attendance Helper v0.6.0
+# MCAST Attendance Helper v0.6.1
 
 A chrome extension that assists MCAST lecturers in filling their attendance. Works in basic mode by default and in advanced mode if configured.
 
