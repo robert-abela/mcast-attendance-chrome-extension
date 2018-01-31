@@ -1,59 +1,71 @@
-function showMsg(msg) {
-	$("#msgdiv").text(msg).show();
+function restoreOriginalMsg() {
+	$('#msgdiv').text('Changes are saved automatically');
 }
 
 function showTempMsg(msg) {
-	showMsg(msg);
-	$("#msgdiv").delay(750).fadeOut(250);
+	$('#msgdiv').text(msg);
+	setTimeout(restoreOriginalMsg, 1000);
+}
+
+function clearTimetable() {
+	chrome.storage.sync.clear(function() {
+		var error = chrome.runtime.lastError;
+		if (error)
+			console.error(error);
+		else
+			showTempMsg('Timetable cleared');
+	});
 }
 
 function saveTimetable() {
-	if ($('#configure').is(":checked")) {
-		var csvValue = $("#timetable").val();
-		var object = {'entries': csvValue};
-		chrome.storage.sync.set(object, function() {
-    		var error = chrome.runtime.lastError;
-    		if (error)
-	        	console.error(error);
-	    	else
-	    		showTempMsg('Timetable saved');
-		});
+	var csvValue = $('#timetable').val();
+	var object = {'entries': csvValue};
+	chrome.storage.sync.set(object, function() {
+		var error = chrome.runtime.lastError;
+		if (error)
+			console.error(error);
+		else
+			showTempMsg('Timetable saved');
+	});
+}
+
+function enableComponents() {
+	if ($('#configure').is(':checked')) {
+		$('#timetable').prop('disabled', false);
+		$('#timetable').focus();
 	}
 	else {
-		chrome.storage.sync.clear(function() {
-    		var error = chrome.runtime.lastError;
-    		if (error)
-	        	console.error(error);
-	    	else
-	    		showTempMsg('Timetable cleared');
-		});
+		$('#timetable').prop('disabled', true);
+		
 	}
 }
 
 function loadSavedOptions() {
 	chrome.storage.sync.get('entries', function (obj) {
-		if (typeof obj.entries !== "undefined") {
-			$("#timetable").text(obj.entries);
+		if (typeof obj.entries !== 'undefined') {
+			$('#timetable').text(obj.entries);
 			$('#configure').prop('checked', true);
+			$("#save").prop('disabled', true);
 		}
 
-		onCheckboxChange();
-		showMsg('Note: Changes are not saved automatically, remember to save your timetable!');
+		enableComponents();
 	});
 }
 
 function onCheckboxChange() {
-	var enabled = $('#configure').is(":checked");
-	$("#timetable").prop('disabled', !enabled);
-	$("#timetable").focus();
+	if (!$('#configure').is(':checked'))
+		clearTimetable();
+
+	enableComponents();
 }
 
 $(document).ready(function(){
 	loadSavedOptions();
-	$('#save').click(saveTimetable);
+	$('#showmoreinfo').click(function(){
+		$('#showmoreinfo').remove();
+		$('#moreinfo').show();
+	});
+
+	$('#timetable').focusout(saveTimetable);
 	$('#configure').click(onCheckboxChange);
-    $("#showmoreinfo").click(function(){
-		$("#showmoreinfo").remove();
-        $("#moreinfo").show();
-    });
 });
