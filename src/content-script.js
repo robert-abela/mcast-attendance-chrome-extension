@@ -152,12 +152,47 @@ function makeCountBtn() {
 	injectBtn(countBtn);
 }
 
+/*function onCleared() {
+  if (chrome.runtime.lastError) {
+    console.log(chrome.runtime.lastError);
+  } else {
+    console.log("cleared");
+  }
+}*/
+
+function restoreStates() {
+	var className = $('#Class').val();
+	chrome.storage.sync.get(className, function (obj) {
+		if (typeof obj[className] === "undefined") {
+			console.log('Students not found in storage');
+			return;
+		}
+		
+		setTimeout(function() {
+			obj[className].forEach(function(student) {
+				//console.log(student);
+				setState(student);
+			});
+		}, 100); //wait for Ranier to create UI elements
+	});
+}
+
 function makeRememberBtn() {
+	//chrome.storage.sync.clear(onCleared);
+
 	var stateBtn = makeBtn("Remember states");
 	stateBtn.addEventListener ("click", function() {
-		//setState('LV5592025', false, 'Not Required', '');
-		//setState('0162896M', false, '', 'smoking');
-		collectIDs();
+		var className = $('#Class').val();
+		var object = {[className]: collectIDs()};
+		chrome.storage.sync.set(object, function() {
+			var error = chrome.runtime.lastError;
+			if (error) {
+				console.error(error);
+			}
+			else {
+				console.log('Students saved');
+			}
+		});
 	});
 	injectBtn(stateBtn);
 }
@@ -195,19 +230,24 @@ function loadCSV() {
 	return new Boolean(false);
 }
 
-function setState(idNum, present, reason, remarks) {
-	var input_elem = $('input[value="'+idNum+'"]');
+function setState(student) {
+	var input_elem = $('input[value="'+student.IDCardNo+'"]');
 	if (input_elem.length == 0)
 		return;
 
 	var elem_id = input_elem.attr('id');
 	var row_num = elem_id.match(/\d+/);
-	if (present)
+	if (student.WasPresent) {
 		$('#StudentRows_'+row_num+'__WasPresent[value=True]').prop('checked', true);
-	else
+	}
+	else {
 		$('#StudentRows_'+row_num+'__WasPresent[value=False]').prop('checked', true);
-	$('#StudentRows_'+row_num+'__AbsenceReason').val(reason).change();
-	$('#StudentRows_'+row_num+'__Remarks').val(remarks);
+		$('#StudentRows_'+row_num+'__AbsentHours').prop('disabled', false);
+		$('#StudentRows_'+row_num+'__AbsenceReason').val(student.AbsenceReason).change();
+		$('#StudentRows_'+row_num+'__AbsenceReason').prop('disabled', false);
+	}
+	
+	$('#StudentRows_'+row_num+'__Remarks').val(student.Remarks);
 }
 
 //collect ID and state for all students in list
