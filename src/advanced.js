@@ -10,6 +10,7 @@ function startModifications() {
 					document.close();
 
 					makeCountBtn();
+					makeRememberBtn();
 				});
 			 }, 0); // 0ms timeout seems to be needed to allow LoadCSV to fill fields
 		}

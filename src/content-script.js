@@ -120,15 +120,26 @@ function CSVToArray( strData, strDelimiter ){
     return (arrData);
 }
 
-function makeCountBtn() {
+function makeBtn(label) {
 	var submitBtn = $("form :submit");
-	var countBtn = document.createElement("input");
-	countBtn.setAttribute("type", "button");
-	countBtn.value = "Count present";
-	countBtn.className = submitBtn.attr('class');
-	countBtn.style.marginRight = '6px';
-	countBtn.addEventListener ("click", function() {
+	var btn = document.createElement("input");
+	btn.setAttribute("type", "button");
+	btn.value = label;
+	btn.className = submitBtn.attr('class');
+	btn.style.marginRight = '6px';
 
+	return btn;
+}
+
+function injectBtn(btn) {
+	var submitBtn = $("form :submit");
+	var parent = submitBtn.parent().get(0);
+	parent.insertBefore(btn, submitBtn.get(0));
+}
+
+function makeCountBtn() {
+	var countBtn = makeBtn("Count present");
+	countBtn.addEventListener ("click", function() {
 		var elems = $('.waspresent').length;
 		if (elems == 0) {
 			countBtn.value = 'Count present (Select Class\\Group)';
@@ -138,8 +149,17 @@ function makeCountBtn() {
 			countBtn.value = 'Count present ('+isChecked+' of '+elems+')';
 		}
 	});
-	var parent = submitBtn.parent().get(0);
-	parent.insertBefore(countBtn, submitBtn.get(0));
+	injectBtn(countBtn);
+}
+
+function makeRememberBtn() {
+	var stateBtn = makeBtn("Remember states");
+	stateBtn.addEventListener ("click", function() {
+		//setState('LV5592025', false, 'Not Required', '');
+		//setState('0162896M', false, '', 'smoking');
+		collectIDs();
+	});
+	injectBtn(stateBtn);
 }
 
 function loadCSV() {
@@ -173,4 +193,44 @@ function loadCSV() {
 		}
 	});
 	return new Boolean(false);
+}
+
+function setState(idNum, present, reason, remarks) {
+	var input_elem = $('input[value="'+idNum+'"]');
+	if (input_elem.length == 0)
+		return;
+
+	var elem_id = input_elem.attr('id');
+	var row_num = elem_id.match(/\d+/);
+	if (present)
+		$('#StudentRows_'+row_num+'__WasPresent[value=True]').prop('checked', true);
+	else
+		$('#StudentRows_'+row_num+'__WasPresent[value=False]').prop('checked', true);
+	$('#StudentRows_'+row_num+'__AbsenceReason').val(reason).change();
+	$('#StudentRows_'+row_num+'__Remarks').val(remarks);
+}
+
+//collect ID and state for all students in list
+function collectIDs() {
+	var students = [];
+	var row_num = 0;
+
+	while (true) {
+		var id_element = $('#StudentRows_'+row_num+'__IDCardNo');
+		if (id_element.length == 0)
+			break;   //No more students in the list
+
+		var absent_element = $('#StudentRows_'+row_num+'__WasPresent[value=True]');
+		var reason_element = $('#StudentRows_'+row_num+'__AbsenceReason');
+		var remarks_element = $('#StudentRows_'+row_num+'__Remarks');
+
+		students[row_num++] = { IDCardNo:id_element.val(),
+								WasPresent:absent_element.prop('checked'),
+								AbsenceReason:reason_element.val(),
+								Remarks:remarks_element.val() };
+	}
+
+	//print all IDs
+	console.log(students);
+	return students;
 }
