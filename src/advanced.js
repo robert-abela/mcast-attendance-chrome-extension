@@ -4,7 +4,7 @@ function startModifications() {
 			setTimeout(function() { 
 				//console.log($( "form:first" ).serialize());
 				$.post( window.location.href, $( "form:first" ).serialize(), function( data ) {
-					console.log(data);
+					//console.log(data);
 					document.open();
 					document.write(data);
 					document.close();

@@ -36,7 +36,6 @@ function enableComponents() {
 	}
 	else {
 		$('#timetable').prop('disabled', true);
-		
 	}
 }
 
