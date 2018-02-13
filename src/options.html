@@ -21,20 +21,19 @@
 			}
 		</style> 
 	</head>
-<body>
-	<p><input id="configure" type="checkbox"> <label for="configure">Configure timetable</label> </p>
-	Each line represents a lesson and is in CSV format: DDD,CLASS,START,END,UNIT <a href="#" id="showmoreinfo">(more info)</a>
-	<div id="moreinfo" style="display: none;">
-		<ul>
-			<li>DDD: 3 letter day of the week, e.g.: Mon, Thu</li>
-			<li>CLASS: full class code name, e.g.: IT-SWD-6.2A</li>
-			<li>START,END: 24-hr clock time in HH:MM format, e.g.: 08:30, 16:00</li>
-			<li>UNIT: Name of the lesson's unit, e.g.: ITSFT-406-1502 - Programming Concepts</li>
-		</ul>
-	</div>
-	<p> <textarea cols="80" rows="10" id="timetable"></textarea> </p>
-	
-	<div id="msgdiv">Changes are saved automatically</div>
-	<script type="text/javascript" src="options.js"></script>
-</body>
+	<body>
+		<p><input id="configure" type="checkbox"> <label for="configure">Configure timetable</label> </p>
+		Each line represents a lesson and is in CSV format: DDD,CLASS,START,END,UNIT <a href="#" id="showmoreinfo">(more info)</a>
+		<div id="moreinfo" style="display: none;">
+			<ul>
+				<li>DDD: 3 letter day of the week, e.g.: Mon, Thu</li>
+				<li>CLASS: full class code name, e.g.: IT-SWD-6.2A</li>
+				<li>START,END: 24-hr clock time in HH:MM format, e.g.: 08:30, 16:00</li>
+				<li>UNIT: Name of the lesson's unit, e.g.: ITSFT-406-1502 - Programming Concepts</li>
+			</ul>
+		</div>
+		<p> <textarea cols="80" rows="10" id="timetable"></textarea> </p>
+		<div id="msgdiv">Changes are saved automatically</div>
+		<script type="text/javascript" src="options.js"></script>
+	</body>
 </html>
