@@ -1,26 +1,38 @@
 function startModifications() {
-	try {
-		if (loadCSV()) {
-			setTimeout(function() { 
-				//console.log($( "form:first" ).serialize());
-				$.post( window.location.href, $( "form:first" ).serialize(), function( data ) {
-					//console.log(data);
-					document.open();
-					document.write(data);
-					document.close();
+	makeCountBtn();
 
-					makeCountBtn();
-					makeRememberBtn();
-				});
-			 }, 0); // 0ms timeout seems to be needed to allow LoadCSV to fill fields
-		}
-		else {
-			makeCountBtn();	// no timetable found
-		}
+	try {
+		chrome.storage.sync.get('entries', function (obj) {
+			if (typeof obj.entries === "undefined") {
+				console.log('Timetable entries not found in storage');
+			}
+			/*else if ($('#Session').val().length > 0) {
+				console.log('Skipping second pass'); //TODO: confirm this is needed
+			}*/
+			else {
+				//Found a configured timetable
+				if (loadCSV(obj.entries) === true) {
+					// CSV loaded successfully
+					$.post(window.location.href, $("form:first").serialize())
+						.done(function(data) {
+							//console.log(data);
+							document.open();
+							document.write(data);
+							document.close();
+							makeCountBtn();
+							makeRememberBtns();
+							$(window).on("load", restoreStates);
+						})
+						.fail(function() {
+							console.err('Failed to POST request');
+						});
+				}
+			}
+		});
 	}
 	catch(err) {
 		console.log(err.message);
 	}
 }
 
-$(document).ready(startModifications); 
+$(document).ready(startModifications);

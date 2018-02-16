@@ -31,11 +31,15 @@ function saveTimetable() {
 
 function enableComponents() {
 	if ($('#configure').is(':checked')) {
+		//Advanced Mode ON
 		$('#timetable').prop('disabled', false);
 		$('#timetable').focus();
+		$('#showmoreinfo').show();
 	}
 	else {
+		//Advanced Mode OFF
 		$('#timetable').prop('disabled', true);
+		$('#showmoreinfo').hide();
 	}
 }
 
@@ -44,7 +48,6 @@ function loadSavedOptions() {
 		if (typeof obj.entries !== 'undefined') {
 			$('#timetable').text(obj.entries);
 			$('#configure').prop('checked', true);
-			$("#save").prop('disabled', true);
 		}
 
 		enableComponents();
@@ -58,6 +61,18 @@ function onCheckboxChange() {
 	enableComponents();
 }
 
+function resetAllData() {
+	chrome.storage.sync.clear(function() {
+		if (chrome.runtime.lastError) {
+			console.log(chrome.runtime.lastError);
+		} else {
+			console.log("All extension data cleared");
+			$('#configure').prop('checked', false);
+			enableComponents();
+		}
+	});
+}
+
 $(document).ready(function(){
 	loadSavedOptions();
 	$('#showmoreinfo').click(function(){
@@ -67,4 +82,5 @@ $(document).ready(function(){
 
 	$('#timetable').focusout(saveTimetable);
 	$('#configure').click(onCheckboxChange);
+	$("#reset").click(resetAllData);
 });

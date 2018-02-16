@@ -20,7 +20,7 @@ var currTime = pad(date.getHours())+':'+pad(date.getMinutes());
 function calcDuration(t1, t2) {
 	dt1 = new Date("July 10, 1982 " + t1 + ":00");
 	dt2 = new Date("July 10, 1982 " + t2 + ":00");
-	return (dt2.getHours()+(dt2.getMinutes()/60)) - 
+	return (dt2.getHours()+(dt2.getMinutes()/60)) -
 		   (dt1.getHours()+(dt1.getMinutes()/60));
 }
 
@@ -33,7 +33,7 @@ function matchItem(item) {
 
 	if (item[FldEnum.CLASS].length === 0)
 		return false; //class name empty
-	
+
 	if (day === (item[FldEnum.DAY]).toUpperCase()) {
 		var start = item[FldEnum.START], end = item[FldEnum.END];
 		if (regexTime.test(start) && regexTime.test(end)) {
@@ -46,7 +46,7 @@ function matchItem(item) {
 }
 
 // ref: http://stackoverflow.com/a/1293163/2343
-// This will parse a delimited string into an array of arrays. The default 
+// This will parse a delimited string into an array of arrays. The default
 // delimiter is the comma, but this can be overriden in the second argument.
 function CSVToArray( strData, strDelimiter ){
     // Check to see if the delimiter is defined. If not,
@@ -82,7 +82,7 @@ function CSVToArray( strData, strDelimiter ){
         var strMatchedDelimiter = arrMatches[ 1 ];
 
         // Check to see if the given delimiter has a length (is not the
-        //  start of string) and if it matches field delimiter. If id 
+        //  start of string) and if it matches field delimiter. If id
         // does not, then we know that this delimiter is a row delimiter.
         if (strMatchedDelimiter.length &&
             strMatchedDelimiter !== strDelimiter) {
@@ -95,16 +95,15 @@ function CSVToArray( strData, strDelimiter ){
 
         var strMatchedValue;
 
-        // Now that we have our delimiter out of the way, let's check to see 
+        // Now that we have our delimiter out of the way, let's check to see
         // which kind of value we captured (quoted or unquoted).
         if (arrMatches[ 2 ]) {
-
             // We found a quoted value. When we capture
             // this value, unescape any double quotes.
             strMatchedValue = arrMatches[ 2 ].replace(
                 new RegExp( "\"\"", "g" ), "\"");
-
-        } else {
+        }
+        else {
             // We found a non-quoted value.
             strMatchedValue = arrMatches[ 3 ];
         }
@@ -120,14 +119,14 @@ function CSVToArray( strData, strDelimiter ){
     return (arrData);
 }
 
-function makeBtn(label) {
-	var submitBtn = $("form :submit");
-	var btn = document.createElement("input");
-	btn.setAttribute("type", "button");
+function makeBtn(label, id) {
+	var submitBtn = $('form :submit');
+	var btn = document.createElement('input');
+	btn.setAttribute('type', 'button');
+	btn.setAttribute('id', id);
 	btn.value = label;
 	btn.className = submitBtn.attr('class');
 	btn.style.marginRight = '6px';
-
 	return btn;
 }
 
@@ -138,8 +137,8 @@ function injectBtn(btn) {
 }
 
 function makeCountBtn() {
-	var countBtn = makeBtn("Count present");
-	countBtn.addEventListener ("click", function() {
+	var countBtn = makeBtn('Count present', 'count');
+	countBtn.addEventListener ('click', function() {
 		var elems = $('.waspresent').length;
 		if (elems == 0) {
 			countBtn.value = 'Count present (Select Class\\Group)';
@@ -150,64 +149,115 @@ function makeCountBtn() {
 		}
 	});
 	injectBtn(countBtn);
+	$('#count').attr('title', 'Count the number of students currently marked as present');
 }
 
-function makeRememberBtn() {
-	var stateBtn = makeBtn("Remember states");
-	stateBtn.addEventListener ("click", function() {
-		//setState('LV5592025', false, 'Not Required', '');
-		//setState('0162896M', false, '', 'smoking');
-		collectIDs();
-	});
-	injectBtn(stateBtn);
-}
-
-function loadCSV() {
-	chrome.storage.sync.get('entries', function (obj) {
-		if (typeof obj.entries === "undefined") {
-			console.log('Timetable not found in storage');
-		}
-		else if ($('#Session').val().length > 0) {
-			console.log('Skipping second pass'); //TODO: confirm this is needed
+function restoreStates() {
+	var className = $('#Class').val();
+	chrome.storage.sync.get(className, function (obj) {
+		if (typeof obj[className] === "undefined") {
+			console.log(className + ' not found in storage');
+			return;
 		}
 		else {
-			var parsedEntries = CSVToArray(obj.entries);
-			var items = parsedEntries.length;
-			console.log(items+' timetable entries found in storage');
-
-			for (var i = 0; i < items; i++) {
-				var item = parsedEntries[i];
-
-				if (matchItem(item) === true) {
-					console.log('Match: '+item);
-
-					//Autofill fields
-					$('#Unit').val(item[FldEnum.UNIT]);
-					$('#Session').val(item[FldEnum.START]);
-					$('#Duration').val(calcDuration(item[FldEnum.START], item[FldEnum.END]));
-					$('#Class').val(item[FldEnum.CLASS]);
-
-					return new Boolean(true);
-				}
-			}
+			console.log(className + ' found in storage');
 		}
+
+		obj[className].forEach(function(student) {
+			//console.log(student);
+			setState(student);
+		});
 	});
-	return new Boolean(false);
 }
 
-function setState(idNum, present, reason, remarks) {
-	var input_elem = $('input[value="'+idNum+'"]');
+function makeRememberBtns() {
+	//Mske Forget button
+	var forgetBtn = makeBtn('Forget', 'forget');
+	forgetBtn.addEventListener ('click', function() {
+		var className = $('#Class').val();
+		chrome.storage.sync.remove(className, function() {
+			if (chrome.runtime.lastError) {
+				console.error(chrome.runtime.lastError);
+			}
+			else {
+				console.log(className + ' students forgotten');
+				$('#forget').prop('disabled', true);
+			}
+		});
+	});
+	injectBtn(forgetBtn);
+
+	//Enable/disable forget
+	var className = $('#Class').val();
+	chrome.storage.sync.get(className, function (obj) {
+		if (typeof obj[className] !== "undefined")
+			$('#forget').prop('disabled', false);
+		else
+			$('#forget').prop('disabled', true);
+	});
+
+	//Make Remember button
+	var rememberBtn = makeBtn('Remember', 'remember');
+	rememberBtn.addEventListener ('click', function() {
+		var className = $('#Class').val();
+		var object = {[className]: collectIDs()};
+		chrome.storage.sync.set(object, function() {
+			if (chrome.runtime.lastError) {
+				console.error(chrome.runtime.lastError);
+			}
+			else {
+				console.log(className + ' students remembered');
+				$('#forget').prop('disabled', false);
+			}
+		});
+	});
+	injectBtn(rememberBtn);
+
+	$('#forget').attr('title', 'Forget the currently remembered students\' absent/present states');
+	$('#remember').attr('title', 'Remember the current absent/present states and use them automatically in the future');
+}
+
+function loadCSV(entries) {
+	var parsedEntries = CSVToArray(entries);
+	var items = parsedEntries.length;
+	console.log(items+' timetable entries found in storage');
+
+	for (var i = 0; i < items; i++) {
+		var item = parsedEntries[i];
+
+		if (matchItem(item) === true) {
+			console.log('Match: '+item);
+
+			//Autofill fields
+			$('#Unit').val(item[FldEnum.UNIT]);
+			$('#Session').val(item[FldEnum.START]);
+			$('#Duration').val(calcDuration(item[FldEnum.START], item[FldEnum.END]));
+			$('#Class').val(item[FldEnum.CLASS]);
+
+			return true;
+		}
+	}
+	return false;
+}
+
+function setState(student) {
+	var input_elem = $('input[value="'+student.IDCardNo+'"]');
 	if (input_elem.length == 0)
 		return;
 
 	var elem_id = input_elem.attr('id');
 	var row_num = elem_id.match(/\d+/);
-	if (present)
+	if (student.WasPresent) {
 		$('#StudentRows_'+row_num+'__WasPresent[value=True]').prop('checked', true);
-	else
+	}
+	else {
 		$('#StudentRows_'+row_num+'__WasPresent[value=False]').prop('checked', true);
-	$('#StudentRows_'+row_num+'__AbsenceReason').val(reason).change();
-	$('#StudentRows_'+row_num+'__Remarks').val(remarks);
+		$('#StudentRows_'+row_num+'__AbsentHours').prop('disabled', false);
+		$('#StudentRows_'+row_num+'__AbsenceReason').val(student.AbsenceReason).change();
+		$('#StudentRows_'+row_num+'__AbsenceReason').prop('disabled', false);
+	}
+
+	$('#StudentRows_'+row_num+'__Remarks').val(student.Remarks);
 }
 
 //collect ID and state for all students in list
@@ -230,7 +280,6 @@ function collectIDs() {
 								Remarks:remarks_element.val() };
 	}
 
-	//print all IDs
-	console.log(students);
+	//console.log(students); //print all IDs
 	return students;
 }
