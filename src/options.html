@@ -19,6 +19,14 @@
 		    	display: table-cell;
 		    	padding: 3px 10px;
 			}
+			menu {
+				float: right;
+				text-align: right;
+				width: auto;
+			}
+			dialog {
+				border-style: groove;
+			}
 		</style>
 	</head>
 	<body>
@@ -33,17 +41,29 @@
 				<li>UNIT: Name of the lesson's unit, e.g.: ITSFT-406-1502 - Programming Concepts</li>
 			</ul>
 		</div>
-		<p> <textarea cols="80" rows="10" id="timetable"></textarea> </p>
+		<p> <textarea cols="80" rows="12" id="timetable"></textarea> </p>
 		<div class="rTable">
 			<div class="rTableRow">
 				<div class="rTableCell">
-					<button id="reset" style="margin-top: 7px">Reset MCAST Attendance Helper</button>
+					<button id="reset" style="margin-top: 7px" title="Deletes all Timetable entries and Remembered attendances">Reset MCAST Attendance Helper to Basic Mode</button>
 				</div>
 				<div class="rTableCell" style="text-align: right;">
 					<div id="msgdiv">Changes are saved automatically</div>
 				</div>
 			</div>
 		</div>
+
+		<dialog id="areYouSureDialog">
+		  <form method="dialog">
+		    <section>Are you sure you want to delete all Timetable entries and Remembered attendances?</section>
+		    <menu>
+		      <button id="cancel_button" type="reset">Cancel</button>
+		      <button id="confirm_button" type="submit">Confirm</button>
+		    </menu>
+		  </form>
+		</dialog>
+
 		<script type="text/javascript" src="options.js"></script>
+
 	</body>
 </html>

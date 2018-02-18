@@ -3,27 +3,40 @@
   <head>
     <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
     <style>
-      body {
-        height: 150px;
-        width: 450px;
+      body { 
+        width: 270px; 
+      }
+      h1 { 
+        font-size: 120%; 
+        margin: 0px;
+      }
+      h2 {
+        font-size: 110%; 
+        margin: 10px 0px 0px 0px;
+      }
+      button.configure {
+         margin: 10px 0px 15px 0px;
+      }
+      img.headerIcon {
+        padding-right: 10px;
       }
     </style>
   </head>
   <body>
-    <h3><img src="img/icon16.png" style="padding-right: 10px"/>MCAST Attendance Helper</h3>
-    <div><b>Basic Mode</b>: Adds a new button to count the number of students present.</div>
-    <div style="padding-top: 5px"><b>Advanced Mode</b>: Configure timetable to enable autofill and remember features.</div>
-    <div style="text-align: center;">
-      <button id="configure" style="margin: 25px">Configure Advanced Mode...</button>
-    </div>
+    <h1><img src="img/icon16.png" class="headerIcon"/>MCAST Attendance Helper v0.7.0</h1>
+    <h2>Basic Mode</h2>
+    Adds a new button to count the number of students marked as present.
+    <h2>Advanced Mode</h2>
+    Configure your timetable to enable <b>Autofill</b> and <b>Remember</b> features.
+    <div><button id="configure" class=configure>Configure Advanced Mode...</button></div>
     <script type="text/javascript" src="popup.js"></script>
     <hr />
     <div>
-      Version 0.7.0 developed by Robert Abela. Sources can be found on <a href="https://github.com/robert-abela/mcast-attendance-extension" target="_blank">github.com/robert-abela</a>. Icons made by <a href="https://www.flaticon.com/authors/icon-works" target="_blank">Icon Works</a> from <a href="https://www.flaticon.com/" target="_blank">flaticon.com</a>.
+      Sources can be found on <a href="https://github.com/robert-abela/mcast-attendance-extension" target="_blank">github.com/robert-abela</a><br />
+      Icons made by <a href="https://www.flaticon.com/authors/icon-works" target="_blank">Icon Works</a> from <a href="https://www.flaticon.com/" target="_blank">flaticon.com</a>
     </div>
   </body>
 </html>
-
 <!--
     https://github.com/jumbosushi/chrome-extension-tutorial
     https://gist.github.com/IzumiSy/765cfd6dc02c79de875e

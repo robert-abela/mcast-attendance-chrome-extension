@@ -62,14 +62,26 @@ function onCheckboxChange() {
 }
 
 function resetAllData() {
-	chrome.storage.sync.clear(function() {
-		if (chrome.runtime.lastError) {
-			console.log(chrome.runtime.lastError);
-		} else {
-			console.log("All extension data cleared");
-			$('#configure').prop('checked', false);
-			enableComponents();
-		}
+	var dialog = $('#areYouSureDialog').get(0);
+	dialog.showModal();
+
+	// Update button opens a modal dialog
+	$('#confirm_button').click(function() {
+		chrome.storage.sync.clear(function() {
+			if (chrome.runtime.lastError) {
+				console.log(chrome.runtime.lastError);
+			} else {
+				console.log('All extension data cleared');
+				$('#configure').prop('checked', false);
+				enableComponents();
+				dialog.close();
+			}
+		});
+	});
+
+	// Form cancel button closes the dialog box
+	$('#cancel_button').click(function() {
+		dialog.close();
 	});
 }
 
