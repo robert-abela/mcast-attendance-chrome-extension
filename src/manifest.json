@@ -35,7 +35,7 @@
 			]
 		},
 		{
-			"matches": ["*://attendance.mcast.edu.mt/Home/Index*"],
+			"matches": ["*://attendance.mcast.edu.mt/Home/Pending*"],
 			"js": [
 				"jquery-3.2.1.min.js",
 				"inject-link.js"
