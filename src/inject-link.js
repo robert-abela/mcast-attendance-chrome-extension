@@ -6,6 +6,10 @@ function injectLink() {
 		else {
 			var link = $("<br /><a href='/Home/Create?Length=4&autofill'>Autofill Attendance</a>");
 			link.insertAfter("h2:first");
+
+			/*if ($(".navbar-right").text().trim() === 'andrew.cortis')
+				if (Math.floor((Math.random() * 10) + 1) === 3)
+					alert('Boo!');*/
 		}
 	});
 }
