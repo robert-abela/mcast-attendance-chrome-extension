@@ -10,7 +10,9 @@ Activates only when visiting https://attendance.mcast.edu.mt to **Add or Edit At
 
 
 Advanced Mode: Adds Autofill and Remember functionalities. 
-Class, Unit, Session & Duration fields if the attendance is being added during the lesson (day of the week and time need to match). Activates when the user has configured the timetable in **Options**. 
+
+**Autofill** Attendance is a link that automatically fills Class, Unit, Session & Duration fields if the attendance is being added during the lesson (day of the week and time need to match). Activates when the user has configured the timetable in Options. 
+
 **Remember** allows the lecturer to save the state of attendance (Absent/Present, Reason & Remark for each student) and to automatically set them again thereafter.
 
 Timetable configured with CSV rows, each line represents a lesson and is in the format: DDD,CLASS,START,END,UNIT as detailed below:
