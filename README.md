@@ -3,11 +3,17 @@
 A chrome extension that assists MCAST lecturers in filling their attendance. Works in basic mode by default and in advanced mode if configured.
 
 ## Basic Mode
-Automatically adds a new button that when pressed counts the number or students marked as present.
-Activates only when visiting http://attendance.mcast.edu.mt to **Add or Edit Attendance** entries. 
+Adds a new button that when pressed counts the number or students marked as present.
+Activates only when visiting https://attendance.mcast.edu.mt to **Add or Edit Attendance** entries. 
 
 ## Advanced Mode
-Adds a new **Autofill Attendance** link on the homepage that autofills Class, Unit, Session & Duration fields if the attendance is being added during the lesson (day of the week and time need to match). Activates when the user has configured the timetable in **Options**. Timetable configured as CSV rows, each line represents a lesson and is in the format: DDD,CLASS,START,END,UNIT as detailed below:
+
+
+Advanced Mode: Adds Autofill and Remember functionalities. 
+Class, Unit, Session & Duration fields if the attendance is being added during the lesson (day of the week and time need to match). Activates when the user has configured the timetable in **Options**. 
+**Remember** allows the lecturer to save the state of attendance (Absent/Present, Reason & Remark for each student) and to automatically set them again thereafter.
+
+Timetable configured with CSV rows, each line represents a lesson and is in the format: DDD,CLASS,START,END,UNIT as detailed below:
 
 * DDD: 3 letter day of the week, e.g.: Mon, Thu
 * CLASS: class name, e.g.: IT-SWD-6.2A
