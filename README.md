@@ -1,14 +1,12 @@
-# MCAST Attendance Helper v0.7.0
+# MCAST Attendance Helper v0.7.1
 
 A chrome extension that assists MCAST lecturers in filling their attendance. Works in basic mode by default and in advanced mode if configured.
 
 ## Basic Mode
-Adds a new button that when pressed counts the number or students marked as present.
+Adds a new button that when pressed counts the number or students marked as present. Also makes some class list headers clickable to set all students present or absent.
 Activates only when visiting https://attendance.mcast.edu.mt to **Add or Edit Attendance** entries. 
 
 ## Advanced Mode
-
-
 Advanced Mode: Adds Autofill and Remember functionalities. 
 
 **Autofill** Attendance is a link that automatically fills Class, Unit, Session & Duration fields if the attendance is being added during the lesson (day of the week and time need to match). Activates when the user has configured the timetable in Options. 

@@ -1,5 +1,6 @@
 function startModifications() {
 	makeCountBtn();
+	makeHeaderLinks();
 
 	try {
 		chrome.storage.sync.get('entries', function (obj) {
@@ -20,6 +21,7 @@ function startModifications() {
 							document.write(data);
 							document.close();
 							makeCountBtn();
+							makeHeaderLinks();
 							makeRememberBtns();
 							$(window).on("load", restoreStates);
 						})

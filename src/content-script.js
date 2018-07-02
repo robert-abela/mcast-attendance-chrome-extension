@@ -152,6 +152,60 @@ function makeCountBtn() {
 	$('#count').attr('title', 'Count the number of students currently marked as present');
 }
 
+function loopClicks(className) {
+	var i;
+	for (i = 0; ; i++) {
+		nextRadioBtn = $("#StudentRows_"+i+"__WasPresent."+className);
+		if (nextRadioBtn.length) { 
+			nextRadioBtn.click();
+			//console.log(i);
+		} 
+		else { // not found
+			break;
+		}
+	}
+}
+
+function makeHeaderLink(header, name) {
+	header.css('cursor', 'pointer');
+	header.css('text-decoration', 'underline');
+	header.prop('title', 'Set all students to ' + name);
+}
+
+function makeHeaderLinks() {
+	$(".table").find("th").each(function(index) {
+		//console.log( index + ": " + $( this ).text() );
+		if (index == 4) {
+			makeHeaderLink($(this), 'Absent');
+			$(this).click(function(){ 
+				loopClicks('wasabsent');
+			});
+		}
+		else if (index == 3) {
+			makeHeaderLink($(this), 'Present');
+			$(this).click(function(){ 
+				loopClicks('waspresent');
+			});
+		}
+		else if (index == 6) {
+			makeHeaderLink($(this), 'Not Required');
+			$(this).click(function(){ 
+				var i;
+				for (i = 0; ; i++) {
+					nextReason = $('#StudentRows_'+i+'__AbsenceReason');
+					if (nextReason.length) { 
+						nextReason.val('Not Required');
+						//console.log(i);
+					} 
+					else { // not found
+						break;
+					}
+				}
+			});
+		}
+	});
+}
+
 function restoreStates() {
 	var className = $('#Class').val();
 	chrome.storage.sync.get(className, function (obj) {
